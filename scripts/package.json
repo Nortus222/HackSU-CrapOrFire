@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "firebase-functions": "^4.2.1",
+    "puppeteer": "^19.7.1"
+  }
+}
