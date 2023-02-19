@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_app/bloc/events/rating_event.dart';
 import 'package:new_app/bloc/rating_bloc.dart';
-import 'package:new_app/database.dart';
 import 'package:new_app/models/menuItem.dart';
 import 'package:new_app/models/rating.dart';
 
@@ -93,6 +92,7 @@ class RatingPage extends StatefulWidget {
 
 class _RatingPageState extends State<RatingPage> {
   int numOfItems = 3;
+  String submitText = "Submit";
 
   @override
   Widget build(BuildContext context) {
@@ -150,11 +150,12 @@ class _RatingPageState extends State<RatingPage> {
                         context
                             .read<RatingBloc>()
                             .add(UploadRating(globals.globalArray));
+                        submitText = "Submitted!";
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 12.0,
                           textStyle: const TextStyle(color: Colors.white)),
-                      child: const Text('Submit'),
+                      child: Text(submitText),
                     ),
                     const Spacer(),
                   ]);
