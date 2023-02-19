@@ -20,7 +20,7 @@ class MenuItemBloc extends Bloc<MenuItemEvent, MenuItemState> {
       if (menuItems.isEmpty) {
         menuItems = await Database.getMenuItems();
       }
-      emit(MenuItemSuccessState(menuItems));
+      emit(MenuItemSuccessState(menuItems, menuItems));
     } catch (error) {
       print("ManuItem BloC: $error");
       emit(MenuItemFailureState());
@@ -61,7 +61,7 @@ class MenuItemBloc extends Bloc<MenuItemEvent, MenuItemState> {
       tmp.addAll(menuItems.reversed.take(5));
       tmp.addAll(menuItems.take(5).toList().reversed);
 
-      emit(MenuItemSuccessState(tmp));
+      emit(MenuItemSuccessState(tmp, menuItems));
     } catch (error) {
       print("ManuItem BloC: $error");
       emit(MenuItemFailureState());
@@ -100,7 +100,7 @@ class MenuItemBloc extends Bloc<MenuItemEvent, MenuItemState> {
       tmp.addAll(menuItems.reversed.take(5));
       tmp.addAll(menuItems.take(5).toList().reversed);
 
-      emit(MenuItemSuccessState(tmp));
+      emit(MenuItemSuccessState(tmp, menuItems));
     } catch (error) {
       emit(MenuItemFailureState());
     }
