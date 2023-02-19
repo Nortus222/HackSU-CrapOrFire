@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_app/bloc/events/rating_event.dart';
+import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/database.dart';
 import 'package:new_app/models/menuItem.dart';
 import 'package:new_app/models/rating.dart';
@@ -12,10 +15,6 @@ class globals {
       List<MenuItem> menuItems, int widgetID, int itemID, double rating) {
     var menuItem = menuItems.firstWhere((element) => element.id == itemID);
     globalArray[widgetID] = Rating(menuItem, rating, DateTime.now());
-  }
-
-  static void submitRatings() {
-    Database.updateRatings(globalArray);
   }
 }
 
@@ -148,7 +147,9 @@ class _RatingPageState extends State<RatingPage> {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        globals.submitRatings();
+                        context
+                            .read<RatingBloc>()
+                            .add(UploadRating(globals.globalArray));
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 12.0,
