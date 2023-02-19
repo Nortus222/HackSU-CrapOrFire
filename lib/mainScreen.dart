@@ -40,7 +40,7 @@ List<Widget> getSlivers(List<MenuItem> items) {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "${(element.avgRating ?? "N/A")} ",
+                    "${(element.avgRating == null ? "N/A" : element.avgRating!.toStringAsPrecision(2))} ",
                     style: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.bold),
                   ),

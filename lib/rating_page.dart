@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_app/bloc/events/rating_event.dart';
+import 'package:new_app/bloc/menuItem_bloc.dart';
 import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/database.dart';
 import 'package:new_app/models/menuItem.dart';
 import 'package:new_app/models/rating.dart';
+
+import 'bloc/events/menuItem_event.dart';
 
 class globals {
   static List<Rating> globalArray = [
@@ -148,8 +151,8 @@ class _RatingPageState extends State<RatingPage> {
                     ElevatedButton(
                       onPressed: () {
                         context
-                            .read<RatingBloc>()
-                            .add(UploadRating(globals.globalArray));
+                            .read<MenuItemBloc>()
+                            .add(UploadRatings(globals.globalArray));
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 12.0,
