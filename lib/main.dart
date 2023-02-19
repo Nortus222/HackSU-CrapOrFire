@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Crap Or Fire',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: MultiBlocProvider(
         providers: [

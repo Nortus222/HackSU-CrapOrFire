@@ -117,22 +117,25 @@ class _RatingPageState extends State<RatingPage> {
                 if (index + 2 == numOfItems) {
                   return Row(children: [
                     const Spacer(),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          numOfItems++;
-                          globals.globalArray.add(Rating(
-                              MenuItem(-1, "-1", "-1", ["-1"], DateTime.now()),
-                              3,
-                              DateTime.now()));
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green.shade300,
-                          padding:EdgeInsets.all(8.0),
-                          elevation: 12.0,
-                          textStyle: const TextStyle(color: Colors.white)),
-                      child: const Text('Add Item'),
+                    Container(
+                      margin: EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            numOfItems++;
+                            globals.globalArray.add(Rating(
+                                MenuItem(-1, "-1", "-1", ["-1"], DateTime.now()),
+                                3,
+                                DateTime.now()));
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green.shade300,
+                            padding:EdgeInsets.all(8.0),
+                            elevation: 12.0,
+                           textStyle: const TextStyle(color: Colors.white)),
+                       child: const Text('Add Item'),
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {

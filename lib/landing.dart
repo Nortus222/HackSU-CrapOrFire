@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
         child: Scaffold(
           bottomNavigationBar: Container(
             padding: const EdgeInsets.all(10),
-            color: Colors.blue,
+            color: Colors.green.shade300,
             child: const TabBar(
               indicatorPadding: EdgeInsets.all(10),
               indicatorSize: TabBarIndicatorSize.tab,
