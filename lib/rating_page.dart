@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_app/bloc/events/rating_event.dart';
+import 'package:new_app/bloc/menuItem_bloc.dart';
+import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/models/menuItem.dart';
 import 'package:new_app/models/rating.dart';
 
+import 'bloc/events/menuItem_event.dart';
+
 class globals {
-  /*static List<Rating> globalArray = [
-    Rating(MenuItem(0, "-1", "-1", ["-1"], DateTime.now()), 3, DateTime.now())
+  static List<Rating> globalArray = [
+    Rating(MenuItem(-1, "-1", "-1", ["-1"], DateTime.now()), 3, DateTime.now())
   ];
   static int globalIndex = 0;
   static void createRating(
       List<MenuItem> menuItems, int widgetID, int itemID, double rating) {
     var menuItem = menuItems.firstWhere((element) => element.id == itemID);
     globalArray[widgetID] = Rating(menuItem, rating, DateTime.now());
-  }*/
+  }
 }
 
 class RatingWidget extends StatefulWidget {
@@ -24,18 +30,17 @@ class RatingWidget extends StatefulWidget {
 }
 
 class _RatingWidgetState extends State<RatingWidget> {
+  int dropdownvalue = 1;
   double _currentSliderValue = 2;
+  int widgetID = globals.globalIndex;
 
   @override
   Widget build(BuildContext context) {
-    //int widgetID = globals.globalIndex;
-    int dropdownvalue = widget.menuItems[0].id;
     var items = List<DropdownMenuItem<int>>.generate(
         widget.menuItems.length,
         (int index) => DropdownMenuItem(
             value: widget.menuItems[index].id,
             child: Text(widget.menuItems[index].title)));
-
     return Row(
       children: [
         Flexible(
@@ -52,8 +57,8 @@ class _RatingWidgetState extends State<RatingWidget> {
             onChanged: (int? newValue) {
               setState(() {
                 dropdownvalue = newValue!;
-                //globals.createRating(widget.menuItems, widgetID, dropdownvalue,
-                //    _currentSliderValue + 1);
+                globals.createRating(widget.menuItems, widgetID, dropdownvalue,
+                    _currentSliderValue + 1);
               });
             },
           ),
@@ -70,8 +75,8 @@ class _RatingWidgetState extends State<RatingWidget> {
             onChanged: (double value) {
               setState(() {
                 _currentSliderValue = value;
-                //globals.createRating(widget.menuItems, widgetID, dropdownvalue,
-                //    _currentSliderValue + 1);
+                globals.createRating(widget.menuItems, widgetID, dropdownvalue,
+                    _currentSliderValue + 1);
               });
             },
           ),
@@ -92,10 +97,10 @@ class RatingPage extends StatefulWidget {
 
 class _RatingPageState extends State<RatingPage> {
   int numOfItems = 3;
+  String submitText = "Submit";
 
   @override
   Widget build(BuildContext context) {
-    //globals.globalArray.length = numOfItems - 2;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Rate Your Eats"),
@@ -108,7 +113,7 @@ class _RatingPageState extends State<RatingPage> {
           child: ListView.builder(
               itemCount: numOfItems,
               itemBuilder: (BuildContext context, int index) {
-                //globals.globalIndex = index;
+                globals.globalIndex = index;
                 if (index + 2 == numOfItems) {
                   return Row(children: [
                     const Spacer(),
@@ -116,9 +121,10 @@ class _RatingPageState extends State<RatingPage> {
                       onPressed: () {
                         setState(() {
                           numOfItems++;
-                          //if (globals.globalArray.length < numOfItems - 2) {
-                          //  globals.globalArray.length = numOfItems - 2;
-                          //}
+                          globals.globalArray.add(Rating(
+                              MenuItem(-1, "-1", "-1", ["-1"], DateTime.now()),
+                              3,
+                              DateTime.now()));
                         });
                       },
                       style: ElevatedButton.styleFrom(
@@ -133,6 +139,7 @@ class _RatingPageState extends State<RatingPage> {
                         if (numOfItems > 3) {
                           setState(() {
                             numOfItems--;
+                            globals.globalArray.length--;
                           });
                         }
                       },
@@ -151,14 +158,16 @@ class _RatingPageState extends State<RatingPage> {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {});
+                        context
+                            .read<MenuItemBloc>()
+                            .add(UploadRatings(globals.globalArray));
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green.shade300,
                           padding:EdgeInsets.all(8.0),
                           elevation: 12.0,
                           textStyle: const TextStyle(color: Colors.white)),
-                      child: const Text('Submit'),
+                      child: Text(submitText),
                     ),
                     const Spacer(),
                   ]);
