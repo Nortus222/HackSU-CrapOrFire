@@ -7,6 +7,7 @@ part of 'menuItem.dart';
 // **************************************************************************
 
 MenuItem _$MenuItemFromJson(Map<String, dynamic> json) => MenuItem(
+      json['id'] as int,
       json['title'] as String,
       json['siteServed'] as String,
       (json['timeServed'] as List<dynamic>).map((e) => e as String).toList(),
@@ -14,6 +15,7 @@ MenuItem _$MenuItemFromJson(Map<String, dynamic> json) => MenuItem(
     );
 
 Map<String, dynamic> _$MenuItemToJson(MenuItem instance) => <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'siteServed': instance.siteServed,
       'timeServed': instance.timeServed,

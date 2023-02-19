@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_app/bloc/events/rating_event.dart';
 import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/bloc/states/menuItem_state.dart';
 import 'package:new_app/bloc/states/rating_state.dart';
+import 'package:new_app/models/rating.dart';
 
 import 'bloc/menuItem_bloc.dart';
 
@@ -49,11 +53,25 @@ class HomePage extends StatelessWidget {
               ),
               BlocBuilder<RatingBloc, RatingState>(builder: (context, state) {
                 if (state is RatingSuccessState) {
-                  return ListView.builder(itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(state.ratings[index].rating.toString()),
-                    );
-                  });
+                  return ListView.builder(
+                      itemCount: state.ratings.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index >= state.ratings.length) {
+                          return IconButton(
+                            icon: const Icon(Icons.add_a_photo),
+                            onPressed: () =>
+                                context.read<RatingBloc>().add(UploadRating([
+                                      Rating(
+                                          state.ratings.first.menuItem,
+                                          Random().nextInt(5).toDouble(),
+                                          DateTime.now())
+                                    ])),
+                          );
+                        }
+                        return ListTile(
+                          title: Text(state.ratings[index].rating.toString()),
+                        );
+                      });
                 } else if (state is RatingLoadingstate) {
                   return const Center(
                     child: CircularProgressIndicator(),

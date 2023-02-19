@@ -29,6 +29,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     emit(RatingLoadingstate());
     try {
       await Database.updateRatings(event.ratings);
+      _getRatings(GetRatings(), emit);
     } catch (error) {
       print("Ratings BloC: $error");
       emit(RatingFailureState());

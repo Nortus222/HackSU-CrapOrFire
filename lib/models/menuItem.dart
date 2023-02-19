@@ -4,12 +4,14 @@ part 'menuItem.g.dart';
 
 @JsonSerializable()
 class MenuItem {
+  int id;
   String title;
   String siteServed;
   List<String> timeServed;
   DateTime dateServed;
 
-  MenuItem(this.title, this.siteServed, this.timeServed, this.dateServed);
+  MenuItem(
+      this.id, this.title, this.siteServed, this.timeServed, this.dateServed);
 
   factory MenuItem.fromJson(Map<String, dynamic> data) =>
       _$MenuItemFromJson(data);

@@ -7,9 +7,9 @@ part 'rating.g.dart';
 class Rating {
   MenuItem menuItem;
   double rating;
-  DateTime timestamp;
+  DateTime timeSubmitted;
 
-  Rating(this.menuItem, this.rating, this.timestamp);
+  Rating(this.menuItem, this.rating, this.timeSubmitted);
 
   factory Rating.fromJson(Map<String, dynamic> data) => _$RatingFromJson(data);
 
