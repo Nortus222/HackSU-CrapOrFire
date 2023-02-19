@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/models/menuItem.dart';
 
 class RatingWidget extends StatefulWidget {
-  const RatingWidget({Key? key}) : super(key: key);
+  final List<MenuItem> menuItems;
+  const RatingWidget({Key? key, required this.menuItems}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -9,18 +11,17 @@ class RatingWidget extends StatefulWidget {
 }
 
 class _RatingWidgetState extends State<RatingWidget> {
-  String dropdownvalue = 'Item 2';
   double _currentSliderValue = 2;
-  var items = [
-    'Small Item',
-    'Item 2',
-    'Item 3',
-    'Massive Huge Crazy Item Wow',
-    'Item 5',
-  ];
 
   @override
   Widget build(BuildContext context) {
+    int dropdownvalue = widget.menuItems[0].id;
+    var items = List<DropdownMenuItem<int>>.generate(
+        widget.menuItems.length,
+        (int index) => DropdownMenuItem(
+            value: widget.menuItems[index].id,
+            child: Text(widget.menuItems[index].title)));
+
     return Row(
       children: [
         Flexible(
@@ -33,13 +34,8 @@ class _RatingWidgetState extends State<RatingWidget> {
             icon: const Icon(Icons.keyboard_arrow_down),
 
             //Menu Items
-            items: items.map((String items) {
-              return DropdownMenuItem(
-                value: items,
-                child: Text(items),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
+            items: items,
+            onChanged: (int? newValue) {
               setState(() {
                 dropdownvalue = newValue!;
               });
@@ -65,6 +61,15 @@ class _RatingWidgetState extends State<RatingWidget> {
   }
 }
 
+class RatingPage extends StatefulWidget {
+  final List<MenuItem> menuItems;
+  const RatingPage({Key? key, required this.menuItems}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _RatingPageState createState() => _RatingPageState();
+}
+
 class _RatingPageState extends State<RatingPage> {
   int numOfItems = 3;
 
@@ -72,9 +77,7 @@ class _RatingPageState extends State<RatingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text("RatingPage"),
       ),
       body: Center(
         child: Padding(
@@ -129,7 +132,9 @@ class _RatingPageState extends State<RatingPage> {
                     const Spacer(),
                   ]);
                 }
-                return const RatingWidget();
+                return RatingWidget(
+                  menuItems: widget.menuItems,
+                );
               }),
         ),
       ),

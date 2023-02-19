@@ -5,6 +5,7 @@ import 'package:new_app/bloc/states/menuItem_state.dart';
 import 'package:new_app/bloc/states/rating_state.dart';
 
 import 'bloc/menuItem_bloc.dart';
+import 'rating_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,14 +48,13 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
-              BlocBuilder<RatingBloc, RatingState>(builder: (context, state) {
-                if (state is RatingSuccessState) {
-                  return ListView.builder(itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(state.ratings[index].rating.toString()),
-                    );
-                  });
-                } else if (state is RatingLoadingstate) {
+              BlocBuilder<MenuItemBloc, MenuItemState>(
+                  builder: (context, state) {
+                if (state is MenuItemSuccessState) {
+                  return RatingPage(
+                    menuItems: state.menuItems,
+                  );
+                } else if (state is MenuItemLoadingState) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
