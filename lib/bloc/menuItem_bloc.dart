@@ -11,6 +11,7 @@ class MenuItemBloc extends Bloc<MenuItemEvent, MenuItemState> {
   MenuItemBloc() : super(MenuItemState()) {
     on<GetMenuItems>(_getMenuItems);
     on<GetMenuItemsWithRating>(_getMenuItemsWithRating);
+    on<UploadRatings>(_uploadRatings);
   }
 
   void _getMenuItems(GetMenuItems event, Emitter<MenuItemState> emit) async {
@@ -63,6 +64,44 @@ class MenuItemBloc extends Bloc<MenuItemEvent, MenuItemState> {
       emit(MenuItemSuccessState(tmp));
     } catch (error) {
       print("ManuItem BloC: $error");
+      emit(MenuItemFailureState());
+    }
+  }
+
+  void _uploadRatings(UploadRatings event, Emitter<MenuItemState> emit) async {
+    emit(MenuItemLoadingState());
+    try {
+      await Database.updateRatings(event.ratings);
+
+      menuItems = await Database.getMenuItems();
+
+      ratings = await Database.getRatings();
+
+      for (var item in menuItems) {
+        double avg = 0;
+        int count = 0;
+        ratings.forEach((rating) {
+          if (rating.menuItem.title == item.title) {
+            avg += rating.rating;
+            count++;
+          }
+        });
+        if (avg > 0) {
+          item.avgRating = avg / count;
+        } else {
+          item.avgRating = 3;
+        }
+      }
+
+      menuItems.sort(((a, b) => a.avgRating!.compareTo(b.avgRating!)));
+
+      List<MenuItem> tmp = [];
+
+      tmp.addAll(menuItems.reversed.take(5));
+      tmp.addAll(menuItems.take(5).toList().reversed);
+
+      emit(MenuItemSuccessState(tmp));
+    } catch (error) {
       emit(MenuItemFailureState());
     }
   }
