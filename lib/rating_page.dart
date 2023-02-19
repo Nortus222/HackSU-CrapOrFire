@@ -61,6 +61,8 @@ class _RatingWidgetState extends State<RatingWidget> {
         Flexible(
           flex: 2,
           child: Slider(
+            activeColor: Colors.orange,
+            inactiveColor: Colors.orange.shade200,
             value: _currentSliderValue,
             max: 4,
             divisions: 4,
@@ -96,7 +98,9 @@ class _RatingPageState extends State<RatingPage> {
     //globals.globalArray.length = numOfItems - 2;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("RatingPage"),
+        title: const Text("Rate Your Eats"),
+        backgroundColor: Colors.green.shade300,
+        foregroundColor: Colors.black,
       ),
       body: Center(
         child: Padding(
@@ -118,6 +122,8 @@ class _RatingPageState extends State<RatingPage> {
                         });
                       },
                       style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green.shade300,
+                          padding:EdgeInsets.all(8.0),
                           elevation: 12.0,
                           textStyle: const TextStyle(color: Colors.white)),
                       child: const Text('Add Item'),
@@ -131,6 +137,8 @@ class _RatingPageState extends State<RatingPage> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green.shade300,
+                          padding:EdgeInsets.all(8.0),
                           elevation: 12.0,
                           textStyle: const TextStyle(color: Colors.white)),
                       child: const Text('Remove Item'),
@@ -146,6 +154,8 @@ class _RatingPageState extends State<RatingPage> {
                         setState(() {});
                       },
                       style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green.shade300,
+                          padding:EdgeInsets.all(8.0),
                           elevation: 12.0,
                           textStyle: const TextStyle(color: Colors.white)),
                       child: const Text('Submit'),

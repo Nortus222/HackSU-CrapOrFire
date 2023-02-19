@@ -10,9 +10,20 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("What The People Are Saying"),
+        backgroundColor: Colors.orange.shade300,
+        foregroundColor: Colors.black,
+      ),
+      body: CustomScrollView(
+        slivers: getSlivers(menuItems),
+      ),
+    );
+    /*
     return CustomScrollView(
       slivers: getSlivers(menuItems),
-    );
+    );*/
   }
 }
 
