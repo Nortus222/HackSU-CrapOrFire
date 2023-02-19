@@ -52,36 +52,22 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
-              BlocBuilder<RatingBloc, RatingState>(builder: (context, state) {
-                if (state is RatingSuccessState) {
-                  return ListView.builder(
-                      itemCount: state.ratings.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index >= state.ratings.length) {
-                          return IconButton(
-                            icon: const Icon(Icons.add_a_photo),
-                            onPressed: () =>
-                                context.read<RatingBloc>().add(UploadRating([
-                                      Rating(
-                                          state.ratings.first.menuItem,
-                                          Random().nextInt(5).toDouble(),
-                                          DateTime.now())
-                                    ])),
-                          );
-                        }
-                        return ListTile(
-                          title: Text(state.ratings[index].rating.toString()),
-                        );
-                      });
-                } else if (state is RatingLoadingstate) {
+              BlocBuilder<MenuItemBloc, MenuItemState>(
+                builder: (context, state) {
+                  if (state is MenuItemSuccessState) {
+                    return RatingPage(
+                      menuItems: state.menuItems,
+                    );
+                  } else if (state is MenuItemLoadingState) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: Text("Failure"),
                   );
-                }
-                return const Center(
-                  child: Text("Failure"),
-                );
-              })
+                },
+              ),
             ],
           ),
         ));
