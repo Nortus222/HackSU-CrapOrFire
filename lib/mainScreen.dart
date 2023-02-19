@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:new_app/models/menuItem.dart';
 
 class MainScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      slivers: [...getSlivers(menuItems)],
+      slivers: getSlivers(menuItems),
     );
   }
 }
@@ -22,15 +23,41 @@ List<Widget> getSlivers(List<MenuItem> items) {
     slivers.add(SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListTile(
-          title: Text(element.title),
-          trailing: Text((element.avgRating ?? "N/A").toString()),
-          subtitle: Text(element.siteServed),
-          tileColor: items.indexOf(element) < 5
-              ? Colors.green.shade300
-              : Colors.orange.shade300,
+        child: Card(
+          borderOnForeground: false,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          clipBehavior: Clip.hardEdge,
+          elevation: 3,
+          child: ListTile(
+            title: Text(
+              element.title,
+              style: const TextStyle(fontSize: 20),
+            ),
+            trailing: Container(
+              width: 90,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "${(element.avgRating ?? "N/A")} ",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  items.indexOf(element) < 5
+                      ? const FaIcon(FontAwesomeIcons.fire)
+                      : const FaIcon(FontAwesomeIcons.poo),
+                ],
+              ),
+            ),
+            subtitle: Text(
+              element.siteServed,
+              style: const TextStyle(fontSize: 18),
+            ),
+            tileColor: items.indexOf(element) < 5
+                ? Colors.green.shade300
+                : Colors.orange.shade300,
+          ),
         ),
       ),
     ));

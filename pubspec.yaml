@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   cloud_firestore: ^4.4.2
   json_annotation: ^4.1.0
+  font_awesome_flutter: ^10.4.0
 
 dev_dependencies:
   flutter_test:
