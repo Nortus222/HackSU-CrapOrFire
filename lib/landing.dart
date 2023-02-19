@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/bloc/states/menuItem_state.dart';
+import 'package:new_app/bloc/states/rating_state.dart';
 
 import 'bloc/menuItem_bloc.dart';
 
@@ -13,18 +15,14 @@ class HomePage extends StatelessWidget {
         length: 2,
         child: Scaffold(
           bottomNavigationBar: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             color: Colors.blue,
-            child: TabBar(
+            child: const TabBar(
               indicatorPadding: EdgeInsets.all(5),
               indicatorSize: TabBarIndicatorSize.tab,
               tabs: [
-                Container(
-                  child: Text("Top 5"),
-                ),
-                Container(
-                  child: Text("what did you eat?"),
-                )
+                Text("Top 5"),
+                Text("what did you eat?"),
               ],
             ),
           ),
@@ -49,9 +47,22 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
-              const Center(
-                child: Text("Vote"),
-              ),
+              BlocBuilder<RatingBloc, RatingState>(builder: (context, state) {
+                if (state is RatingSuccessState) {
+                  return ListView.builder(itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(state.ratings[index].rating.toString()),
+                    );
+                  });
+                } else if (state is RatingLoadingstate) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return const Center(
+                  child: Text("Failure"),
+                );
+              })
             ],
           ),
         ));
