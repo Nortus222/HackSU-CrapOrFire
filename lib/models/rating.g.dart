@@ -9,11 +9,11 @@ part of 'rating.dart';
 Rating _$RatingFromJson(Map<String, dynamic> json) => Rating(
       MenuItem.fromJson(json['menuItem'] as Map<String, dynamic>),
       (json['rating'] as num).toDouble(),
-      DateTime.parse(json['timestamp'] as String),
+      DateTime.parse(json['timeSubmitted'] as String),
     );
 
 Map<String, dynamic> _$RatingToJson(Rating instance) => <String, dynamic>{
       'menuItem': instance.menuItem,
       'rating': instance.rating,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'timeSubmitted': instance.timeSubmitted.toIso8601String(),
     };
