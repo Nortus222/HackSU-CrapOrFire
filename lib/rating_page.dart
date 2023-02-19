@@ -150,7 +150,9 @@ class _RatingPageState extends State<RatingPage> {
                         context
                             .read<RatingBloc>()
                             .add(UploadRating(globals.globalArray));
-                        submitText = "Submitted!";
+                        setState(() {
+                          submitText = "Submitted!";
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 12.0,
