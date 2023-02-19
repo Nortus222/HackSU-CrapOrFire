@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '992626340618',
     projectId: 'hackathon23',
     storageBucket: 'hackathon23.appspot.com',
-    iosClientId: '992626340618-4n4r7accmpp2n4hinh62gkdebr5l8ol2.apps.googleusercontent.com',
+    iosClientId:
+        '992626340618-4n4r7accmpp2n4hinh62gkdebr5l8ol2.apps.googleusercontent.com',
     iosBundleId: 'com.example.newApp',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '992626340618',
     projectId: 'hackathon23',
     storageBucket: 'hackathon23.appspot.com',
-    iosClientId: '992626340618-4n4r7accmpp2n4hinh62gkdebr5l8ol2.apps.googleusercontent.com',
+    iosClientId:
+        '992626340618-4n4r7accmpp2n4hinh62gkdebr5l8ol2.apps.googleusercontent.com',
     iosBundleId: 'com.example.newApp',
   );
 }

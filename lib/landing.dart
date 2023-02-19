@@ -10,6 +10,7 @@ import 'package:new_app/mainScreen.dart';
 import 'package:new_app/models/rating.dart';
 
 import 'bloc/menuItem_bloc.dart';
+import 'rating_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
