@@ -6,6 +6,7 @@ import 'package:new_app/bloc/events/rating_event.dart';
 import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/bloc/states/menuItem_state.dart';
 import 'package:new_app/bloc/states/rating_state.dart';
+import 'package:new_app/mainScreen.dart';
 import 'package:new_app/models/rating.dart';
 
 import 'bloc/menuItem_bloc.dart';
@@ -23,11 +24,17 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             color: Colors.blue,
             child: const TabBar(
-              indicatorPadding: EdgeInsets.all(5),
+              indicatorPadding: EdgeInsets.all(10),
               indicatorSize: TabBarIndicatorSize.tab,
               tabs: [
-                Text("Top 5"),
-                Text("what did you eat?"),
+                Text(
+                  "Top 5 Crap & Fire",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Text(
+                  "What did you eat?",
+                  style: TextStyle(fontSize: 20),
+                ),
               ],
             ),
           ),
@@ -36,12 +43,7 @@ class HomePage extends StatelessWidget {
               BlocBuilder<MenuItemBloc, MenuItemState>(
                 builder: (context, state) {
                   if (state is MenuItemSuccessState) {
-                    return ListView.builder(
-                        itemCount: state.menuItems.length,
-                        itemBuilder: ((context, index) {
-                          return ListTile(
-                              title: Text(state.menuItems[index].title));
-                        }));
+                    return MainScreen(state.menuItems);
                   } else if (state is MenuItemLoadingState) {
                     return const Center(
                       child: CircularProgressIndicator(),

@@ -9,9 +9,12 @@ class MenuItem {
   String siteServed;
   List<String> timeServed;
   DateTime dateServed;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  double? avgRating;
 
   MenuItem(
-      this.id, this.title, this.siteServed, this.timeServed, this.dateServed);
+      this.id, this.title, this.siteServed, this.timeServed, this.dateServed,
+      {this.avgRating});
 
   factory MenuItem.fromJson(Map<String, dynamic> data) =>
       _$MenuItemFromJson(data);

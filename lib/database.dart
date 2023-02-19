@@ -43,16 +43,14 @@ class Database {
 
     json['menuItem'] = ref.docs.first.reference;
 
-    print(json);
-
     return await ratings.add(json);
   }
 
   static Future updateRatings(List<Rating> ratings) async {
-    await Database.updateRating(ratings.first);
-    // ratings.forEach((element) async {
-    //   await Database.updateRating(element);
-    // });
+    // await Database.updateRating(ratings.first);
+    ratings.forEach((element) async {
+      await Database.updateRating(element);
+    });
   }
 
   static Future uploadFromFile() async {
