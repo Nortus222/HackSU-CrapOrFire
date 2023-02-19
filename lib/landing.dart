@@ -6,6 +6,7 @@ import 'package:new_app/bloc/events/rating_event.dart';
 import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/bloc/states/menuItem_state.dart';
 import 'package:new_app/bloc/states/rating_state.dart';
+import 'package:new_app/mainScreen.dart';
 import 'package:new_app/models/rating.dart';
 
 import 'bloc/menuItem_bloc.dart';
@@ -35,12 +36,13 @@ class HomePage extends StatelessWidget {
               BlocBuilder<MenuItemBloc, MenuItemState>(
                 builder: (context, state) {
                   if (state is MenuItemSuccessState) {
-                    return ListView.builder(
-                        itemCount: state.menuItems.length,
-                        itemBuilder: ((context, index) {
-                          return ListTile(
-                              title: Text(state.menuItems[index].title));
-                        }));
+                    // return ListView.builder(
+                    //     itemCount: state.menuItems.length,
+                    //     itemBuilder: ((context, index) {
+                    //       return ListTile(
+                    //           title: Text(state.menuItems[index].title));
+                    //     }));
+                    return MainScreen(state.menuItems);
                   } else if (state is MenuItemLoadingState) {
                     return const Center(
                       child: CircularProgressIndicator(),

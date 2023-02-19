@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiBlocProvider(
         providers: [
-        BlocProvider<MenuItemBloc>(create: (context) => MenuItemBloc()..add(GetMenuItems())),
+        BlocProvider<MenuItemBloc>(create: (context) => MenuItemBloc()..add(GetMenuItemsWithRating())),
         BlocProvider<RatingBloc>(create: (context) => RatingBloc()..add(GetRatings())),
         ], 
         child: const HomePage())
