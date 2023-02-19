@@ -35,8 +35,6 @@ class Database {
   }
 
   static Future updateRating(Rating rating) async {
-    var item = rating.menuItem;
-
     var ref = await menuItems.where('id', isEqualTo: rating.menuItem.id).get();
 
     var json = rating.toJson();
@@ -54,11 +52,15 @@ class Database {
   }
 
   static Future uploadFromFile() async {
-    final String json = await rootBundle.loadString("data.txt");
+    final String json = await rootBundle.loadString("data.json");
 
     Map<String, dynamic> data = jsonDecode(json);
-
+    int id = 21;
     data.forEach((key, value) async {
+      value['id'] = id;
+      id++;
+      value['timeServed'] = [value['timeServed']];
+      print(value);
       // await menuItems.add(value);
     });
   }

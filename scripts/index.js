@@ -32,9 +32,9 @@ async function scrape() {
     await dropdownButton.click();
 
     //Thrive
-    await page.waitForSelector("#building_612ff923a9f13a04a36619ab > li:nth-child(4) > button");
+    await page.waitForSelector("#building_612ff923a9f13a04a36619ab > li:nth-child(12) > button");
 
-    const thrive = await page.$('#building_612ff923a9f13a04a36619ab > li:nth-child(4) > button');
+    const thrive = await page.$('#building_612ff923a9f13a04a36619ab > li:nth-child(12) > button');
 
     thrive.click();
 
@@ -48,34 +48,34 @@ async function scrape() {
     for(let i = 0; i < thriveItemsLunch.length; i++) {
         let menuItemObject = {
             title: thriveItemsLunch[i],
-            siteServed: 'Thrive',
-            timeServed: 'Lunch',
+            siteServed: 'Home Base',
+            timeServed: 'Dinner',
             dateServed: currDate
         }
 
         itemsObject[`mI${i+1}`] = menuItemObject;
     }
 
-    await page.waitForTimeout(5000);
+    // await page.waitForTimeout(5000);
 
-    const dinnerTab = await page.waitForXPath('//a[text()="Dinner"]');
+    // const dinnerTab = await page.waitForXPath('//a[text()="Dinner"]');
 
-    dinnerTab.click();
+    // dinnerTab.click();
 
-    await page.waitForTimeout(5000);
+    // await page.waitForTimeout(5000);
 
-    const thriveItemsDinner= await page.$$eval('strong', anchors => { return anchors.map(anchor => anchor.textContent).slice(0, 10) })
+    // const thriveItemsDinner= await page.$$eval('strong', anchors => { return anchors.map(anchor => anchor.textContent).slice(0, 10) })
 
 
-    for(let i = 0; i < thriveItemsDinner.length; i++) {
-        let menuItemObject = {
-            title: thriveItemsDinner[i],
-            siteServed: 'Thrive',
-            timeServed: 'Dinner',
-            dateServed: currDate
-        }
-        itemsObject[`mI${i+currIndex+1}`] = menuItemObject;
-    }
+    // for(let i = 0; i < thriveItemsDinner.length; i++) {
+    //     let menuItemObject = {
+    //         title: thriveItemsDinner[i],
+    //         siteServed: 'Thrive',
+    //         timeServed: 'Dinner',
+    //         dateServed: currDate
+    //     }
+    //     itemsObject[`mI${i+currIndex+1}`] = menuItemObject;
+    // }
 
     console.log(itemsObject);    
     var jsonContent = JSON.stringify(itemsObject);
