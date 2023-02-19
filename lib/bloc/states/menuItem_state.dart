@@ -1,6 +1,12 @@
+import 'package:new_app/models/menuItem.dart';
+
 class MenuItemState {}
 
-class MenuItemSuccessState extends MenuItemState {}
+class MenuItemSuccessState extends MenuItemState {
+  final List<MenuItem> menuItems;
+
+  MenuItemSuccessState(this.menuItems);
+}
 
 class MenuItemLoadingState extends MenuItemState {}
 

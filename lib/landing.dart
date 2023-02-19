@@ -33,9 +33,12 @@ class HomePage extends StatelessWidget {
               BlocBuilder<MenuItemBloc, MenuItemState>(
                 builder: (context, state) {
                   if (state is MenuItemSuccessState) {
-                    return const Center(
-                      child: Text("SUCCESS"),
-                    );
+                    return ListView.builder(
+                        itemCount: state.menuItems.length,
+                        itemBuilder: ((context, index) {
+                          return ListTile(
+                              title: Text(state.menuItems[index].title));
+                        }));
                   } else if (state is MenuItemLoadingState) {
                     return const Center(
                       child: CircularProgressIndicator(),

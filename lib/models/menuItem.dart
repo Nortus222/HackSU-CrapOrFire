@@ -6,10 +6,10 @@ part 'menuItem.g.dart';
 class MenuItem {
   String title;
   String siteServed;
-  List<String> timeSreved;
+  List<String> timeServed;
   DateTime dateServed;
 
-  MenuItem(this.title, this.siteServed, this.timeSreved, this.dateServed);
+  MenuItem(this.title, this.siteServed, this.timeServed, this.dateServed);
 
   factory MenuItem.fromJson(Map<String, dynamic> data) =>
       _$MenuItemFromJson(data);

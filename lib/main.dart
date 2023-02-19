@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_app/bloc/events/menuItem_event.dart';
+import 'package:new_app/bloc/events/rating_event.dart';
 import 'package:new_app/bloc/menuItem_bloc.dart';
+import 'package:new_app/bloc/rating_bloc.dart';
 import 'package:new_app/landing.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '/firebase_options.dart';
@@ -27,7 +29,9 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiBlocProvider(
         providers: [
-        BlocProvider<MenuItemBloc>(create: (context) => MenuItemBloc()..add(GetMenuItems()))], 
+        BlocProvider<MenuItemBloc>(create: (context) => MenuItemBloc()..add(GetMenuItems())),
+        BlocProvider<RatingBloc>(create: (context) => RatingBloc()..add(GetRatings())),
+        ], 
         child: const HomePage())
     
     );
