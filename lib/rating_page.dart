@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/database.dart';
 import 'package:new_app/models/menuItem.dart';
 import 'package:new_app/models/rating.dart';
 
 class globals {
-  /*static List<Rating> globalArray = [
-    Rating(MenuItem(0, "-1", "-1", ["-1"], DateTime.now()), 3, DateTime.now())
+  static List<Rating> globalArray = [
+    Rating(MenuItem(-1, "-1", "-1", ["-1"], DateTime.now()), 3, DateTime.now())
   ];
   static int globalIndex = 0;
   static void createRating(
       List<MenuItem> menuItems, int widgetID, int itemID, double rating) {
     var menuItem = menuItems.firstWhere((element) => element.id == itemID);
     globalArray[widgetID] = Rating(menuItem, rating, DateTime.now());
-  }*/
+  }
+
+  static void submitRatings() {
+    Database.updateRatings(globalArray);
+  }
 }
 
 class RatingWidget extends StatefulWidget {
@@ -24,18 +29,17 @@ class RatingWidget extends StatefulWidget {
 }
 
 class _RatingWidgetState extends State<RatingWidget> {
+  int dropdownvalue = 1;
   double _currentSliderValue = 2;
+  int widgetID = globals.globalIndex;
 
   @override
   Widget build(BuildContext context) {
-    //int widgetID = globals.globalIndex;
-    int dropdownvalue = widget.menuItems[0].id;
     var items = List<DropdownMenuItem<int>>.generate(
         widget.menuItems.length,
         (int index) => DropdownMenuItem(
             value: widget.menuItems[index].id,
             child: Text(widget.menuItems[index].title)));
-
     return Row(
       children: [
         Flexible(
@@ -52,8 +56,8 @@ class _RatingWidgetState extends State<RatingWidget> {
             onChanged: (int? newValue) {
               setState(() {
                 dropdownvalue = newValue!;
-                //globals.createRating(widget.menuItems, widgetID, dropdownvalue,
-                //    _currentSliderValue + 1);
+                globals.createRating(widget.menuItems, widgetID, dropdownvalue,
+                    _currentSliderValue + 1);
               });
             },
           ),
@@ -68,8 +72,8 @@ class _RatingWidgetState extends State<RatingWidget> {
             onChanged: (double value) {
               setState(() {
                 _currentSliderValue = value;
-                //globals.createRating(widget.menuItems, widgetID, dropdownvalue,
-                //    _currentSliderValue + 1);
+                globals.createRating(widget.menuItems, widgetID, dropdownvalue,
+                    _currentSliderValue + 1);
               });
             },
           ),
@@ -93,10 +97,9 @@ class _RatingPageState extends State<RatingPage> {
 
   @override
   Widget build(BuildContext context) {
-    //globals.globalArray.length = numOfItems - 2;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("RatingPage"),
+        title: const Text("Was it Crap? Or Fire?"),
       ),
       body: Center(
         child: Padding(
@@ -104,7 +107,7 @@ class _RatingPageState extends State<RatingPage> {
           child: ListView.builder(
               itemCount: numOfItems,
               itemBuilder: (BuildContext context, int index) {
-                //globals.globalIndex = index;
+                globals.globalIndex = index;
                 if (index + 2 == numOfItems) {
                   return Row(children: [
                     const Spacer(),
@@ -112,9 +115,10 @@ class _RatingPageState extends State<RatingPage> {
                       onPressed: () {
                         setState(() {
                           numOfItems++;
-                          //if (globals.globalArray.length < numOfItems - 2) {
-                          //  globals.globalArray.length = numOfItems - 2;
-                          //}
+                          globals.globalArray.add(Rating(
+                              MenuItem(-1, "-1", "-1", ["-1"], DateTime.now()),
+                              3,
+                              DateTime.now()));
                         });
                       },
                       style: ElevatedButton.styleFrom(
@@ -127,6 +131,7 @@ class _RatingPageState extends State<RatingPage> {
                         if (numOfItems > 3) {
                           setState(() {
                             numOfItems--;
+                            globals.globalArray.length--;
                           });
                         }
                       },
@@ -143,7 +148,7 @@ class _RatingPageState extends State<RatingPage> {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {});
+                        globals.submitRatings();
                       },
                       style: ElevatedButton.styleFrom(
                           elevation: 12.0,
