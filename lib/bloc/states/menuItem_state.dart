@@ -4,8 +4,9 @@ class MenuItemState {}
 
 class MenuItemSuccessState extends MenuItemState {
   final List<MenuItem> menuItems;
+  final List<MenuItem> menuItemsFull;
 
-  MenuItemSuccessState(this.menuItems);
+  MenuItemSuccessState(this.menuItems, this.menuItemsFull);
 }
 
 class MenuItemLoadingState extends MenuItemState {}

@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                 builder: (context, state) {
                   if (state is MenuItemSuccessState) {
                     return RatingPage(
-                      menuItems: state.menuItems,
+                      menuItems: state.menuItemsFull,
                     );
                   } else if (state is MenuItemLoadingState) {
                     return const Center(

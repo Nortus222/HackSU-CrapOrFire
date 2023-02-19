@@ -55,13 +55,13 @@ class Database {
     final String json = await rootBundle.loadString("data.json");
 
     Map<String, dynamic> data = jsonDecode(json);
-    int id = 21;
+    int id = 28;
     data.forEach((key, value) async {
       value['id'] = id;
       id++;
       value['timeServed'] = [value['timeServed']];
       print(value);
-      // await menuItems.add(value);
+      //await menuItems.add(value);
     });
   }
 }
